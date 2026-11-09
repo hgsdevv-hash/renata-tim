@@ -7,65 +7,21 @@
   const $ = (s, r = document) => r.querySelector(s);
   const $$ = (s, r = document) => [...r.querySelectorAll(s)];
 
-  /* ---------- conte o prato ---------- */
-  /* gramas de carboidrato por porção, aproximados pela TACO (Unicamp) */
-  const FOODS = [
-    ['Arroz branco cozido', '1 colher de servir (45 g)', 13],
-    ['Feijão carioca', '1 concha (90 g)', 12],
-    ['Macarrão cozido', '1 pegador (110 g)', 33],
-    ['Batata cozida', '1 unidade média (130 g)', 15],
-    ['Pão francês', '1 unidade (50 g)', 29],
-    ['Banana prata', '1 unidade (70 g)', 18],
-    ['Maçã', '1 unidade média (130 g)', 20],
-    ['Suco de laranja', '1 copo (200 ml)', 15],
-    ['Leite integral', '1 copo (200 ml)', 9],
-    ['Brigadeiro', '1 unidade (20 g)', 12],
-    ['Frango grelhado', '1 filé (100 g)', 0],
-    ['Salada de folhas', 'à vontade', 2]
-  ];
-  const list = $('[data-foods]');
-  const qty = FOODS.map(() => 0);
-  qty[0] = 2; qty[1] = 1; qty[10] = 1; qty[11] = 1; /* um prato do dia a dia para começar */
-  list.innerHTML = FOODS.map(([n, p, g], i) => `
-    <li class="food" data-i="${i}">
-      <span class="food-name">${n}<small>${p}</small></span>
-      <span class="food-g">${g} g cada</span>
-      <span class="step" role="group" aria-label="Quantidade de ${n}">
-        <button type="button" data-d="-1" aria-label="Tirar uma porção de ${n}">&minus;</button>
-        <output aria-live="off">0</output>
-        <button type="button" data-d="1" aria-label="Pôr uma porção de ${n}">+</button>
-      </span>
-    </li>`).join('');
-
-  const totalEl = $('[data-total]'), subEl = $('[data-sub]'), barEl = $('[data-bar]');
-  let shown = 0;
+  /* ---------- conte o prato: tocar põe ou tira ---------- */
+  const chips = $$('.chip'), totalEl = $('[data-total]');
+  let shown = +totalEl.textContent;
   const render = () => {
-    let t = 0;
-    $$('.food', list).forEach((li, i) => {
-      t += qty[i] * FOODS[i][2];
-      li.querySelector('output').textContent = qty[i];
-      li.querySelector('[data-d="-1"]').disabled = qty[i] === 0;
-      li.classList.toggle('has', qty[i] > 0);
-    });
-    const porcoes = (t / 15).toLocaleString('pt-BR', { maximumFractionDigits: 1 });
-    subEl.textContent = t === 0
-      ? 'Prato vazio. Use o + para pôr alimentos.'
-      : `Cerca de ${porcoes} porções de 15 g. Frango e salada quase não contam: quem pesa na conta é o carboidrato.`;
-    barEl.style.width = Math.min(100, t / 120 * 100) + '%';
+    const t = chips.reduce((s, c) => s + (c.getAttribute('aria-pressed') === 'true' ? +c.dataset.g : 0), 0);
     if (hasG && !reduce) {
       const o = { v: shown };
-      gsap.to(o, { v: t, duration: .5, ease: 'power3.out', onUpdate: () => (totalEl.textContent = Math.round(o.v)) });
+      gsap.to(o, { v: t, duration: .45, ease: 'power3.out', onUpdate: () => (totalEl.textContent = Math.round(o.v)) });
     } else totalEl.textContent = t;
     shown = t;
   };
-  list.addEventListener('click', e => {
-    const b = e.target.closest('button[data-d]'); if (!b) return;
-    const i = +b.closest('.food').dataset.i;
-    qty[i] = Math.max(0, Math.min(9, qty[i] + +b.dataset.d));
+  chips.forEach(c => c.addEventListener('click', () => {
+    c.setAttribute('aria-pressed', String(c.getAttribute('aria-pressed') !== 'true'));
     render();
-  });
-  $('[data-reset]').addEventListener('click', () => { qty.fill(0); render(); });
-  render();
+  }));
 
   /* tabela no celular: cada resposta leva o nome da coluna */
   const cols = $$('.cmp-row--head .cmp-c').map(c => c.textContent.trim());

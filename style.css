@@ -135,44 +135,26 @@ h3 { font-weight: 500; font-size: var(--step-lead); line-height: 1.2; }
 .prato { padding: clamp(96px, 12vw, 160px) var(--m) clamp(72px, 8vw, 120px); }
 .prato-head { display: grid; grid-template-columns: 1fr 1fr; gap: 32px 6vw; align-items: end; margin-bottom: 56px; }
 .prato-head .lead { max-width: 34ch; }
-.prato-grid { display: grid; grid-template-columns: 1.25fr 1fr; gap: 0 4vw; align-items: start; }
-.foods { list-style: none; margin: 0; padding: 0; }
-.food {
-  display: grid; grid-template-columns: 1fr auto auto; align-items: center; gap: 16px;
-  min-height: 72px; padding: 10px 16px;
+.prato-grid { display: grid; grid-template-columns: 1.4fr 1fr; gap: 16px; align-items: stretch; }
+.chips { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; }
+.chip {
+  display: grid; gap: 4px; align-content: center; text-align: left;
+  min-height: 92px; padding: 14px 16px; border: 0; cursor: pointer;
+  background: var(--surface); color: var(--ink); font: 500 1.125rem/1.2 var(--text);
+  transition: background-color .2s ease, color .2s ease, transform .12s ease;
 }
-.food:nth-child(odd) { background: var(--surface); }
-.food-name { font-weight: 500; font-size: 1.0625rem; line-height: 1.25; }
-.food-name small { display: block; font-weight: 400; font-size: var(--step-small); color: var(--muted); margin-top: 2px; }
-.food-g { font-size: 1rem; color: var(--muted); min-width: 4ch; text-align: right; }
-.step { display: inline-flex; align-items: center; background: var(--bg); }
-.food:nth-child(odd) .step { background: #eceef1; }
-.step button {
-  width: 44px; height: 44px; border: 0; background: transparent; color: var(--ink);
-  font: 500 1.375rem/1 var(--text); cursor: pointer; transition: background-color .15s ease, transform .1s ease;
-}
-.step button:hover { background: var(--ink); color: var(--accent-ink); }
-.step button:active { transform: scale(.9); }
-.step button:disabled { opacity: .35; pointer-events: none; }
-.step output { width: 2.2ch; text-align: center; font-weight: 500; }
-.food { border-left: 6px solid transparent; transition: border-color .2s ease; }
-.food.has { border-left-color: var(--ink); }
-
+.chip small { font-weight: 400; font-size: var(--step-small); opacity: .8; }
+.chip:hover { background: #c9cfdb; }
+.chip:active { transform: scale(.96); }
+.chip[aria-pressed="true"] { background: var(--ink); color: var(--accent-ink); }
 .readout {
-  position: sticky; top: 88px; background: var(--field); color: var(--field-ink);
-  padding: 32px; display: grid; gap: 8px;
+  background: var(--field); color: var(--field-ink); padding: 32px;
+  display: flex; flex-direction: column; justify-content: center;
 }
-.readout-label { font-size: 1rem; }
 .readout-num { display: flex; align-items: baseline; gap: 10px; font-family: var(--display); font-weight: 700; }
 .readout-num b { font-size: clamp(4.5rem, 3rem + 6vw, 8.5rem); line-height: .95; font-variant-numeric: tabular-nums; }
 .readout-num span { font-size: 2rem; }
-.readout-sub { font-size: 1.0625rem; min-height: 3em; }
-.readout-bar { height: 12px; background: var(--band); margin: 8px 0 16px; }
-.readout-bar i { display: block; height: 100%; width: 0; background: var(--field-ink); transition: width .5s cubic-bezier(.2,.8,.2,1); }
-.readout-photo { margin: 8px 0 0; display: grid; grid-template-columns: 120px 1fr; gap: 16px; align-items: center; }
-.readout-photo img { width: 120px; aspect-ratio: 1; object-fit: cover; }
-.readout-photo figcaption { font-size: var(--step-small); opacity: .9; }
-.link-btn { justify-self: start; margin-top: 12px; background: none; border: 0; padding: 8px 0; color: inherit; font: 500 1rem var(--text); text-decoration: underline; text-underline-offset: 4px; cursor: pointer; }
+.readout-label { font-size: 1.125rem; margin-top: 8px; }
 .nota { max-width: 70ch; margin-top: 32px; font-size: var(--step-small); color: var(--muted); }
 
 /* ---------- para quem é: comparação em texto ---------- */
@@ -302,10 +284,8 @@ h3 { font-weight: 500; font-size: var(--step-lead); line-height: 1.2; }
 /* ---------- tablet ---------- */
 @media (max-width: 1080px) {
   .panel { grid-template-columns: 1fr 300px; padding: 44px; }
-  .sobre-head h2 { font-size: 1.625rem; }
   .prato-grid { grid-template-columns: 1fr; }
-  .readout { position: relative; top: 0; margin: 0 0 32px; order: -1; }
-  .prato-grid { display: flex; flex-direction: column; }
+  .sobre-head h2 { font-size: 1.625rem; }
   .cmp-row { grid-template-columns: 4fr repeat(3, 5fr); }
   .palco-foot { flex-direction: column; align-items: flex-start; }
   .palco-img { height: calc(100% - 230px); }
@@ -335,10 +315,12 @@ h3 { font-weight: 500; font-size: var(--step-lead); line-height: 1.2; }
   .sobre-photo { width: 80vw; margin: 48px auto -10vw; }
 
   .prato-head { grid-template-columns: 1fr; margin-bottom: 32px; }
-  .food { grid-template-columns: 1fr auto; gap: 8px 12px; padding: 12px; }
-  .food-g { grid-column: 1; grid-row: 2; text-align: left; font-size: var(--step-small); }
-  .step { grid-column: 2; grid-row: 1 / span 2; }
-  .readout { padding: 24px 20px; }
+  .chips { grid-template-columns: 1fr 1fr; }
+  .chip { min-height: 76px; padding: 12px; font-size: 1.0625rem; }
+  .readout { order: -1; position: sticky; top: 8px; z-index: 3; padding: 16px 20px; flex-direction: row; align-items: baseline; gap: 12px; }
+  .readout-num b { font-size: 3.5rem; }
+  .readout-num span { font-size: 1.5rem; }
+  .readout-label { margin: 0; font-size: 1rem; }
 
   .cmp { gap: 0; }
   .cmp-row.cmp-row--head { display: none; }

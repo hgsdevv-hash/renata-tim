@@ -75,7 +75,7 @@
       <a class="btn btn--light" data-rise href="https://wa.me/5519997932589" target="_blank" rel="noopener">Conversar no WhatsApp</a>
     </div>
     <figure class="sobre-photo">
-      <img src="media/consultorio.webp" width="600" height="600" loading="lazy" alt="Renata Tim no consultório, com os certificados na parede">
+      <img src="media/consultorio.webp" width="600" height="600" loading="lazy" alt="Renata Tim sorrindo">
     </figure>
   </div>
 </section>
@@ -84,28 +84,25 @@
 <section class="prato" id="prato">
   <div class="prato-head">
     <h2 data-rise>Conte o prato</h2>
-    <p class="lead" data-rise>Monte uma refeição e veja quantos gramas de carboidrato ela tem. É o primeiro passo da contagem que eu ensino na consulta.</p>
+    <p class="lead" data-rise>Toque no que vai no seu prato e veja quanto carboidrato ele tem. É assim que começa a contagem que eu ensino na consulta.</p>
   </div>
   <div class="prato-grid">
-    <ul class="foods" data-foods aria-label="Alimentos">
-      <!-- preenchido pelo script; versão sem script abaixo -->
-      <li class="food"><span class="food-name">Arroz branco cozido<small>1 colher de servir (45 g)</small></span><span class="food-g">13 g</span></li>
-      <li class="food"><span class="food-name">Feijão carioca<small>1 concha (90 g)</small></span><span class="food-g">12 g</span></li>
-      <li class="food"><span class="food-name">Pão francês<small>1 unidade (50 g)</small></span><span class="food-g">29 g</span></li>
-    </ul>
-    <aside class="readout" aria-live="polite">
-      <p class="readout-num"><b data-total>0</b><span>g</span></p>
-      <p class="readout-label">de carboidrato neste prato</p>
-      <p class="readout-sub" data-sub>Escolha os alimentos ao lado.</p>
-      <div class="readout-bar" aria-hidden="true"><i data-bar></i></div>
-      <figure class="readout-photo">
-        <img src="media/bomba.webp" width="720" height="768" loading="lazy" alt="Tela da bomba de insulina da Renata marcando 144 mg/dL">
-        <figcaption>A bomba da Renata, às 19h47: 144 mg/dL.</figcaption>
-      </figure>
-      <button class="link-btn" type="button" data-reset>Limpar o prato</button>
-    </aside>
+    <div class="chips" data-foods role="group" aria-label="Toque nos alimentos do seu prato">
+      <button type="button" class="chip" aria-pressed="true" data-g="26">Arroz<small>2 colheres · 26 g</small></button>
+      <button type="button" class="chip" aria-pressed="true" data-g="12">Feijão<small>1 concha · 12 g</small></button>
+      <button type="button" class="chip" aria-pressed="false" data-g="15">Batata<small>1 média · 15 g</small></button>
+      <button type="button" class="chip" aria-pressed="false" data-g="29">Pão francês<small>1 unidade · 29 g</small></button>
+      <button type="button" class="chip" aria-pressed="false" data-g="18">Banana<small>1 unidade · 18 g</small></button>
+      <button type="button" class="chip" aria-pressed="false" data-g="12">Brigadeiro<small>1 unidade · 12 g</small></button>
+      <button type="button" class="chip" aria-pressed="true" data-g="0">Frango<small>1 filé · 0 g</small></button>
+      <button type="button" class="chip" aria-pressed="true" data-g="2">Salada<small>à vontade · 2 g</small></button>
+    </div>
+    <div class="readout" aria-live="polite">
+      <p class="readout-num"><b data-total>40</b><span>g</span></p>
+      <p class="readout-label">de carboidrato no prato</p>
+    </div>
   </div>
-  <p class="nota">Valores aproximados, calculados com a Tabela Brasileira de Composição de Alimentos (TACO, Unicamp). Na consulta, a contagem é feita com as suas porções, e a dose de insulina segue a orientação do seu médico.</p>
+  <p class="nota">Valores aproximados pela Tabela TACO (Unicamp). Na consulta, a contagem é feita com as suas porções.</p>
 </section>
 
 <!-- PARA QUEM É -->
