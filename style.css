@@ -23,11 +23,11 @@
 }
 
 *, *::before, *::after { box-sizing: border-box; }
-html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; overflow-x: clip; }
 body {
   margin: 0; background: var(--bg); color: var(--ink);
   font: 400 var(--step-body)/1.5 var(--text);
-  -webkit-font-smoothing: antialiased; overflow-x: hidden;
+  -webkit-font-smoothing: antialiased; overflow-x: clip;
 }
 img, video { display: block; max-width: 100%; height: auto; }
 a { color: inherit; }
@@ -115,7 +115,7 @@ h3 { font-weight: 500; font-size: var(--step-lead); line-height: 1.2; }
 .sobre { padding: 20px; }
 .panel {
   position: relative; background: var(--deep); color: var(--field-ink);
-  min-height: 100svh; padding: 56px; overflow: hidden;
+  padding: 56px; overflow: hidden;
   display: grid; grid-template-columns: 1fr 340px; gap: 0 6vw;
 }
 .sobre-head h2 { font-size: clamp(2rem, 1rem + 2.6vw, 3.5rem); }
@@ -125,7 +125,7 @@ h3 { font-weight: 500; font-size: var(--step-lead); line-height: 1.2; }
 .sobre-text p { font-size: 1.0625rem; }
 .sobre-text .btn { justify-self: start; }
 .sobre-photo {
-  grid-column: 1; grid-row: 2; align-self: end; margin: 64px 0 -6vw 4vw;
+  grid-column: 1; grid-row: 2; align-self: end; margin: 64px 0 0 4vw;
   width: min(38vw, 560px); aspect-ratio: 1; border-radius: 50%; overflow: hidden;
   padding: 14px; background: var(--band);
 }
@@ -193,7 +193,7 @@ h3 { font-weight: 500; font-size: var(--step-lead); line-height: 1.2; }
 .palco--b { background: var(--surface); color: var(--ink); }
 .palco-img { position: absolute; inset: 0 0 auto 0; width: 100%; height: calc(100% - 150px); object-fit: cover; }
 .palco--a .palco-img { object-position: 50% 30%; }
-.palco-h { position: absolute; z-index: 2; top: 96px; left: 28px; font-size: clamp(1.625rem, 1rem + 1.6vw, 2.5rem); background: var(--field); padding: 10px 14px 6px; }
+.palcos-h { grid-column: 1 / -1; padding: clamp(72px, 9vw, 140px) var(--m) 48px; }
 .palco-foot { position: relative; z-index: 1; min-height: 150px; padding: 24px 28px 28px; display: flex; justify-content: space-between; align-items: flex-end; gap: 24px; background: inherit; }
 .palco-foot p { display: grid; gap: 6px; max-width: 36ch; }
 .palco-foot strong { font-weight: 500; font-size: 1.25rem; }
@@ -300,7 +300,8 @@ h3 { font-weight: 500; font-size: var(--step-lead); line-height: 1.2; }
   .bar-nav a:not(.bar-cta) { display: none; }
   .hero { grid-template-rows: 78fr 22fr; }
   .hero-title { padding-top: 15vh; font-size: 15vw; }
-  .hero-photo { z-index: 0; right: -4vw; bottom: -7%; width: 68vw; }
+  .hero-photo { z-index: 0; right: 16px; bottom: 20px; width: 60vw; transform: rotate(3deg); }
+  .shutter { border-radius: 999px 999px 0 0; }
   .trace { height: 38%; bottom: 4%; }
   .trace-lab--hi { bottom: calc(4% + 38% * (280 / 400) + 6px); }
   .trace-lab--lo { bottom: calc(4% + 38% * (110 / 400) - 18px); }
@@ -312,12 +313,13 @@ h3 { font-weight: 500; font-size: var(--step-lead); line-height: 1.2; }
   .sobre-head h2 { font-size: 1.625rem; }
   .sobre-statement { font-size: 1.25rem; }
   .sobre-text { margin-top: 40px; gap: 36px; }
-  .sobre-photo { width: 80vw; margin: 48px auto -10vw; }
+  .sobre-photo { width: 78vw; margin: 40px auto 0; }
+  .panel { padding-bottom: 32px; }
 
   .prato-head { grid-template-columns: 1fr; margin-bottom: 32px; }
   .chips { grid-template-columns: 1fr 1fr; }
   .chip { min-height: 76px; padding: 12px; font-size: 1.0625rem; }
-  .readout { order: -1; position: sticky; top: 8px; z-index: 3; padding: 16px 20px; flex-direction: row; align-items: baseline; gap: 12px; }
+  .readout { order: -1; padding: 16px 20px; flex-direction: row; align-items: baseline; gap: 12px; }
   .readout-num b { font-size: 3.5rem; }
   .readout-num span { font-size: 1.5rem; }
   .readout-label { margin: 0; font-size: 1rem; }
@@ -342,7 +344,7 @@ h3 { font-weight: 500; font-size: var(--step-lead); line-height: 1.2; }
   .palco { min-height: 82svh; }
   .palco-act { width: 100%; }
   .palco-act .btn { flex: 1; }
-  .palco-h { top: 24px; left: 16px; font-size: 1.625rem; }
+  .palcos-h { padding: 72px 16px 32px; }
 
   .falo-top { grid-template-columns: 1fr; margin-bottom: 40px; }
   .falo h2 { font-size: 11vw; }
@@ -363,11 +365,12 @@ h3 { font-weight: 500; font-size: var(--step-lead); line-height: 1.2; }
 
   .agendar { display: block; padding: 64px 16px 0; min-height: 0; }
   .agendar-p { margin: 0 0 40px; font-size: 1.25rem; }
-  .card { width: 90%; margin: 0 auto -48px; padding: 32px 20px; transform: rotate(1deg); }
+  .card { width: 100%; margin: 0; padding: 32px 20px; transform: none; }
   .card h2 { font-size: 1.5rem; }
-  .bar-btn { min-height: 52px; margin-bottom: 48px; }
+  .bar-btn { min-height: 52px; margin-bottom: 0; }
+  .agendar { padding-bottom: 56px; }
 
-  .rodape { min-height: 60svh; padding: 32px 16px 24px; }
+  .rodape { min-height: 0; padding: 40px 16px 24px; row-gap: 48px; }
   .rod-top { flex-direction: column; gap: 6px; }
   .rod-top a { margin-left: 0; margin-top: 8px; }
   .rod-phone { font-size: 9.2vw; }
